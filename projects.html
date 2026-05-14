@@ -295,6 +295,57 @@
     }
     .print-btn:hover { background: rgba(255,255,255,.07); color: var(--text); border-color: var(--border-g); }
 
+    /* Pipeline section */
+    .pipeline-section { margin-top: 2rem; }
+    .pipeline-section-label {
+      font-size: .67rem; font-weight: 700; color: var(--muted);
+      letter-spacing: .12em; text-transform: uppercase;
+      margin-bottom: .85rem; display: flex; align-items: center; gap: .5rem;
+    }
+    .pipeline-section-label::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .pipeline-group { margin-bottom: 1rem; }
+    .pipeline-group-head {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .7rem 1rem;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius) var(--radius) 0 0;
+      border-bottom: none;
+    }
+    .pipeline-group-head .pg-ico {
+      width: 24px; height: 24px; border-radius: 5px;
+      background: var(--glow); border: 1px solid var(--border-g);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; flex-shrink: 0;
+    }
+    .pipeline-group-head .pg-name { font-size: .82rem; font-weight: 700; }
+    .pipeline-items {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 0 0 var(--radius) var(--radius);
+      overflow: hidden;
+    }
+    .pipeline-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .65rem 1rem;
+      border-bottom: 1px solid var(--border);
+      transition: background .14s;
+    }
+    .pipeline-item:last-child { border-bottom: none; }
+    .pipeline-item:hover { background: rgba(74,222,128,.025); }
+    .pi-name { font-size: .8rem; font-weight: 600; color: var(--text-2); }
+    .badge-queue {
+      background: rgba(148,163,184,.07);
+      border: 1px solid rgba(148,163,184,.18);
+      color: #94a3b8;
+      display: inline-flex; align-items: center; gap: .28rem;
+      border-radius: 100px; padding: .2rem .55rem;
+      font-size: .63rem; font-weight: 700; letter-spacing: .04em; white-space: nowrap;
+    }
+    .badge-queue .bd { width: 4px; height: 4px; border-radius: 50%; background: #94a3b8; flex-shrink: 0; }
+
     @media print {
       nav, .print-btn, .nav-back { display: none !important; }
       body { background: #fff; color: #111; }
@@ -493,6 +544,59 @@
       <div class="st-label">Total Billed</div>
       <div class="st-val">16</div>
       <div class="st-unit">hours &nbsp;·&nbsp; May to June 2026</div>
+    </div>
+  </div>
+
+  <!-- PIPELINE -->
+  <div class="pipeline-section">
+    <div class="pipeline-section-label">Upcoming Projects</div>
+
+    <!-- Casino Group -->
+    <div class="pipeline-group">
+      <div class="pipeline-group-head">
+        <div class="pg-ico">🎰</div>
+        <span class="pg-name">Casino Websites</span>
+      </div>
+      <div class="pipeline-items">
+        <div class="pipeline-item">
+          <span class="pi-name">Casino WP Site for Revamp</span>
+          <span class="badge-queue"><span class="bd"></span>In Queue</span>
+        </div>
+        <div class="pipeline-item">
+          <span class="pi-name">Casino Monaco</span>
+          <span class="badge-queue"><span class="bd"></span>In Queue</span>
+        </div>
+        <div class="pipeline-item">
+          <span class="pi-name">VIP Gaming Lounge</span>
+          <span class="badge-queue"><span class="bd"></span>In Queue</span>
+        </div>
+        <div class="pipeline-item">
+          <span class="pi-name">VIP Gaming Lounge</span>
+          <span class="badge-queue"><span class="bd"></span>In Queue</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Casa Group -->
+    <div class="pipeline-group">
+      <div class="pipeline-group-head">
+        <div class="pg-ico">🏡</div>
+        <span class="pg-name">Casa Websites</span>
+      </div>
+      <div class="pipeline-items">
+        <div class="pipeline-item">
+          <span class="pi-name">Casa Rambutan</span>
+          <span class="badge-queue"><span class="bd"></span>In Queue</span>
+        </div>
+        <div class="pipeline-item">
+          <span class="pi-name">Casa dos Cascadas</span>
+          <span class="badge-queue"><span class="bd"></span>In Queue</span>
+        </div>
+        <div class="pipeline-item">
+          <span class="pi-name">Casa Plantita</span>
+          <span class="badge-queue"><span class="bd"></span>In Queue</span>
+        </div>
+      </div>
     </div>
   </div>
 

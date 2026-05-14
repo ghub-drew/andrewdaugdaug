@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | Andrew D.</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .wrap { max-width: 960px; padding: 80px max(1.5rem,4vw) 60px; }
+    .admin-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 1.5rem; }
+    .admin-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem;
+      text-decoration: none; color: var(--text);
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+      display: flex; flex-direction: column; gap: .65rem;
+    }
+    .admin-card:hover { border-color: var(--border-g); transform: translateY(-2px); box-shadow: 0 6px 28px rgba(74,222,128,.07); }
+    .admin-card-ico { font-size: 1.5rem; }
+    .admin-card-title { font-size: .95rem; font-weight: 700; }
+    .admin-card-desc { font-size: .75rem; color: var(--muted-2); line-height: 1.55; }
+    .admin-card-link { font-size: .72rem; color: var(--green); margin-top: auto; }
+    .stat-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-bottom: 2rem; }
+    .stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; }
+    .stat-label { font-size: .65rem; color: var(--muted); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: .35rem; }
+    .stat-val { font-size: 1.3rem; font-weight: 800; color: var(--green); letter-spacing: -.03em; }
+    .stat-sub { font-size: .68rem; color: var(--muted-2); margin-top: .1rem; }
+    @media (max-width: 720px) {
+      .admin-grid { grid-template-columns: 1fr; }
+      .stat-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="pw-overlay">
+  <div class="pw-box">
+    <div class="pw-logo">Andrew<span>D.</span></div>
+    <div class="pw-title">Admin area. Enter password to continue.</div>
+    <input class="pw-input" type="password" id="pwInput" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()" autofocus />
+    <button class="pw-btn" onclick="checkPw()">Unlock</button>
+    <div class="pw-error" id="pwError"></div>
+  </div>
+</div>
+
+<style>
+  #pw-overlay { position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center; }
+  .pw-box { background:var(--bg-card);border:1px solid var(--border-g);border-radius:var(--radius);padding:2rem;width:100%;max-width:340px;text-align:center;position:relative;overflow:hidden; }
+  .pw-box::before { content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:280px;height:180px;background:radial-gradient(ellipse,rgba(74,222,128,.12) 0%,transparent 68%);pointer-events:none; }
+  .pw-logo { font-weight:800;font-size:1rem;letter-spacing:-.02em;margin-bottom:.3rem; }
+  .pw-logo span { color:var(--green); }
+  .pw-title { font-size:.8rem;color:var(--muted-2);margin-bottom:1.5rem; }
+  .pw-input { width:100%;padding:.6rem 1rem;background:var(--bg-3);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text);font-family:inherit;font-size:.875rem;outline:none;transition:border-color .15s;margin-bottom:.75rem;text-align:center;letter-spacing:.1em; }
+  .pw-input:focus { border-color:var(--border-g); }
+  .pw-btn { width:100%;padding:.6rem;background:var(--green);color:#020d02;border:none;border-radius:var(--r-sm);font-family:inherit;font-size:.825rem;font-weight:700;cursor:pointer;transition:all .15s; }
+  .pw-btn:hover { background:#72ebb0; }
+  .pw-error { font-size:.72rem;color:#f87171;margin-top:.6rem;min-height:1rem; }
+</style>
+
+<script>
+  function checkPw() {
+    if (document.getElementById('pwInput').value === 'nissi') {
+      document.getElementById('pw-overlay').style.display = 'none';
+    } else {
+      document.getElementById('pwError').textContent = 'Incorrect password. Try again.';
+      document.getElementById('pwInput').value = '';
+      document.getElementById('pwInput').focus();
+    }
+  }
+</script>
+
+<nav>
+  <a href="/" class="nav-logo">Andrew<span class="g">D.</span></a>
+  <a href="/" class="nav-back">&#8592; Back to Portfolio</a>
+</nav>
+
+<div class="wrap">
+
+  <div class="page-header">
+    <div class="page-label">Admin</div>
+    <h1 class="page-title">Admin Dashboard</h1>
+    <p class="page-sub">Site management, documentation, and changelog</p>
+    <p class="page-meta">Last updated: May 14, 2026</p>
+  </div>
+
+  <!-- Quick stats -->
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-label">Total Pages</div>
+      <div class="stat-val">6</div>
+      <div class="stat-sub">index, projects, tutorial, admin, docs, changelog</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Active Projects</div>
+      <div class="stat-val">4</div>
+      <div class="stat-sub">Cloud migration, Loyalty App, Casa, Tutorial</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Upcoming</div>
+      <div class="stat-val">6</div>
+      <div class="stat-sub">Casino and Casa WP site rebuilds</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Hosted On</div>
+      <div class="stat-val" style="font-size:.95rem;">Vercel</div>
+      <div class="stat-sub">andrewdaugdaug.com</div>
+    </div>
+  </div>
+
+  <!-- Nav cards -->
+  <div class="sec-label">Pages</div>
+  <div class="admin-grid">
+
+    <a href="/projects" class="admin-card">
+      <div class="admin-card-ico">📋</div>
+      <div class="admin-card-title">Project Tracker</div>
+      <div class="admin-card-desc">Active projects, upcoming pipeline, and work status overview.</div>
+      <div class="admin-card-link">Open Project Tracker ↗</div>
+    </a>
+
+    <a href="/tutorial" class="admin-card">
+      <div class="admin-card-ico">📚</div>
+      <div class="admin-card-title">Tutorial Tracker</div>
+      <div class="admin-card-desc">Weekly tutorial schedule for Cyje and Yvon with tutor assignments and rates.</div>
+      <div class="admin-card-link">Open Tutorial Tracker ↗</div>
+    </a>
+
+    <a href="/documentation" class="admin-card">
+      <div class="admin-card-ico">📄</div>
+      <div class="admin-card-title">Documentation</div>
+      <div class="admin-card-desc">Site structure, file references, deployment notes, and technical details.</div>
+      <div class="admin-card-link">Open Documentation ↗</div>
+    </a>
+
+    <a href="/changelog" class="admin-card">
+      <div class="admin-card-ico">🕐</div>
+      <div class="admin-card-title">Changelog</div>
+      <div class="admin-card-desc">History of updates, improvements, and changes made to the site.</div>
+      <div class="admin-card-link">Open Changelog ↗</div>
+    </a>
+
+    <a href="/" class="admin-card">
+      <div class="admin-card-ico">🌐</div>
+      <div class="admin-card-title">Portfolio</div>
+      <div class="admin-card-desc">Main public-facing portfolio homepage at andrewdaugdaug.com.</div>
+      <div class="admin-card-link">Open Portfolio ↗</div>
+    </a>
+
+    <a href="https://github.com/ghub-drew/andrewdaugdaug" target="_blank" rel="noopener" class="admin-card">
+      <div class="admin-card-ico">🔗</div>
+      <div class="admin-card-title">GitHub Repo</div>
+      <div class="admin-card-desc">Source code repository hosted on GitHub, connected to Vercel for auto-deploy.</div>
+      <div class="admin-card-link">Open GitHub ↗</div>
+    </a>
+
+  </div>
+</div>
+</body>
+</html>

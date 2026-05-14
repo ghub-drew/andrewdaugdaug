@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation | Andrew D.</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .wrap { max-width: 900px; padding: 80px max(1.5rem,4vw) 60px; }
+    .doc-section { margin-bottom: 2rem; }
+    .doc-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: .75rem; }
+    .doc-block-head { padding: .85rem 1.25rem; background: var(--bg-3); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: .6rem; }
+    .doc-ico { width: 26px; height: 26px; border-radius: 6px; background: var(--glow); border: 1px solid var(--border-g); display: flex; align-items: center; justify-content: center; font-size: .8rem; flex-shrink: 0; }
+    .doc-block-title { font-size: .85rem; font-weight: 700; }
+    .doc-block-body { padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: .6rem; }
+    .doc-row { display: flex; align-items: flex-start; gap: 1rem; font-size: .8rem; }
+    .doc-key { color: var(--muted-2); font-weight: 600; min-width: 140px; flex-shrink: 0; }
+    .doc-val { color: var(--text-2); line-height: 1.55; }
+    .doc-val a { color: var(--green); text-decoration: none; }
+    .doc-val a:hover { text-decoration: underline; }
+    .doc-val code { background: var(--bg-3); border: 1px solid var(--border); border-radius: 4px; padding: .1rem .4rem; font-size: .75rem; color: var(--green); font-family: monospace; }
+    .doc-divider { height: 1px; background: var(--border); margin: .25rem 0; }
+    .file-list { display: flex; flex-direction: column; gap: .4rem; }
+    .file-item { display: flex; align-items: center; justify-content: space-between; padding: .55rem .75rem; background: var(--bg-3); border-radius: var(--r-sm); font-size: .78rem; }
+    .file-name { font-weight: 600; color: var(--text); font-family: monospace; }
+    .file-desc { color: var(--muted-2); font-size: .72rem; }
+    .file-size { color: var(--muted); font-size: .68rem; }
+    .tag { display: inline-flex; align-items: center; background: var(--glow); border: 1px solid var(--border-g); border-radius: 4px; padding: .15rem .5rem; font-size: .65rem; font-weight: 600; color: var(--green); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/admin" class="nav-logo">Andrew<span class="g">D.</span></a>
+  <a href="/admin" class="nav-back">&#8592; Back to Admin</a>
+</nav>
+
+<div class="wrap">
+
+  <div class="page-header">
+    <div class="page-label">Documentation</div>
+    <h1 class="page-title">Site Documentation</h1>
+    <p class="page-sub">Technical reference for andrewdaugdaug.com</p>
+    <p class="page-meta">Last updated: May 14, 2026</p>
+  </div>
+
+  <!-- Site overview -->
+  <div class="doc-section">
+    <div class="sec-label">Overview</div>
+    <div class="doc-block">
+      <div class="doc-block-head"><div class="doc-ico">🌐</div><div class="doc-block-title">Site Overview</div></div>
+      <div class="doc-block-body">
+        <div class="doc-row"><span class="doc-key">Domain</span><span class="doc-val"><a href="https://www.andrewdaugdaug.com" target="_blank">www.andrewdaugdaug.com</a></span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Type</span><span class="doc-val">Static HTML site — no framework, no build step</span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Hosting</span><span class="doc-val">Vercel (free tier) with custom domain</span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Repository</span><span class="doc-val"><a href="https://github.com/ghub-drew/andrewdaugdaug" target="_blank">github.com/ghub-drew/andrewdaugdaug</a></span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Deploy</span><span class="doc-val">Auto-deploy on every push to <code>main</code> branch</span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">CDN</span><span class="doc-val">Vercel Edge Network — global distribution</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- File structure -->
+  <div class="doc-section">
+    <div class="sec-label">File Structure</div>
+    <div class="doc-block">
+      <div class="doc-block-head"><div class="doc-ico">📁</div><div class="doc-block-title">Project Files</div></div>
+      <div class="doc-block-body">
+        <div class="file-list">
+          <div class="file-item">
+            <span class="file-name">index.html</span>
+            <span class="file-desc">Main portfolio homepage</span>
+            <span class="tag">Public</span>
+          </div>
+          <div class="file-item">
+            <span class="file-name">style.css</span>
+            <span class="file-desc">Shared stylesheet for all pages</span>
+            <span class="tag">Shared</span>
+          </div>
+          <div class="file-item">
+            <span class="file-name">projects.html</span>
+            <span class="file-desc">Project tracker — password protected</span>
+            <span class="tag">Private</span>
+          </div>
+          <div class="file-item">
+            <span class="file-name">tutorial.html</span>
+            <span class="file-desc">Tutorial schedule tracker</span>
+            <span class="tag">Private</span>
+          </div>
+          <div class="file-item">
+            <span class="file-name">admin.html</span>
+            <span class="file-desc">Admin dashboard — password protected</span>
+            <span class="tag">Private</span>
+          </div>
+          <div class="file-item">
+            <span class="file-name">documentation.html</span>
+            <span class="file-desc">This page — technical reference</span>
+            <span class="tag">Private</span>
+          </div>
+          <div class="file-item">
+            <span class="file-name">changelog.html</span>
+            <span class="file-desc">Site update history</span>
+            <span class="tag">Private</span>
+          </div>
+          <div class="file-item">
+            <span class="file-name">vercel.json</span>
+            <span class="file-desc">Vercel config — clean URLs, cache headers</span>
+            <span class="tag">Config</span>
+          </div>
+          <div class="file-item">
+            <span class="file-name">images/drew.webp</span>
+            <span class="file-desc">Profile photo — WebP format, 8.9KB</span>
+            <span class="tag">Asset</span>
+          </div>
+          <div class="file-item">
+            <span class="file-name">images/drew.png</span>
+            <span class="file-desc">Profile photo fallback — PNG, 70KB</span>
+            <span class="tag">Asset</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- URLs -->
+  <div class="doc-section">
+    <div class="sec-label">Page URLs</div>
+    <div class="doc-block">
+      <div class="doc-block-head"><div class="doc-ico">🔗</div><div class="doc-block-title">Live URLs</div></div>
+      <div class="doc-block-body">
+        <div class="doc-row"><span class="doc-key">Portfolio</span><span class="doc-val"><a href="https://www.andrewdaugdaug.com" target="_blank">andrewdaugdaug.com</a></span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Projects</span><span class="doc-val"><a href="https://www.andrewdaugdaug.com/projects" target="_blank">andrewdaugdaug.com/projects</a></span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Tutorial</span><span class="doc-val"><a href="https://www.andrewdaugdaug.com/tutorial" target="_blank">andrewdaugdaug.com/tutorial</a></span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Admin</span><span class="doc-val"><a href="https://www.andrewdaugdaug.com/admin" target="_blank">andrewdaugdaug.com/admin</a></span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Documentation</span><span class="doc-val"><a href="https://www.andrewdaugdaug.com/documentation" target="_blank">andrewdaugdaug.com/documentation</a></span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Changelog</span><span class="doc-val"><a href="https://www.andrewdaugdaug.com/changelog" target="_blank">andrewdaugdaug.com/changelog</a></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech stack -->
+  <div class="doc-section">
+    <div class="sec-label">Technical Details</div>
+    <div class="doc-block">
+      <div class="doc-block-head"><div class="doc-ico">⚙️</div><div class="doc-block-title">Stack and Performance</div></div>
+      <div class="doc-block-body">
+        <div class="doc-row"><span class="doc-key">Fonts</span><span class="doc-val">System font stack — Inter, -apple-system, Segoe UI. No external font requests.</span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Images</span><span class="doc-val">WebP with PNG fallback via <code>picture</code> element. Profile photo: 8.9KB.</span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">CSS</span><span class="doc-val">Shared <code>style.css</code> cached by browser. Page-specific styles inline per page.</span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Mobile</span><span class="doc-val">Animations and backdrop-filter disabled on mobile for faster rendering.</span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Cache</span><span class="doc-val">Images cached for 1 year. HTML pages set to no-cache for fresh content.</span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Security</span><span class="doc-val">Private pages use JavaScript password overlay. X-Frame-Options and X-Content-Type-Options headers set.</span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Clean URLs</span><span class="doc-val">Enabled via <code>vercel.json</code> — no .html extension in URLs.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How to update -->
+  <div class="doc-section">
+    <div class="sec-label">How to Update</div>
+    <div class="doc-block">
+      <div class="doc-block-head"><div class="doc-ico">🚀</div><div class="doc-block-title">Deployment Workflow</div></div>
+      <div class="doc-block-body">
+        <div class="doc-row"><span class="doc-key">Step 1</span><span class="doc-val">Edit files locally in <code>C:\Users\andre\Documents\andrewdaugdaug\</code></span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Step 2</span><span class="doc-val">Use Claude Code to push: <code>git add . &amp;&amp; git commit -m "message" &amp;&amp; git push</code></span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Step 3</span><span class="doc-val">Vercel auto-deploys within 1 to 2 minutes of each push to the <code>main</code> branch.</span></div>
+        <div class="doc-divider"></div>
+        <div class="doc-row"><span class="doc-key">Step 4</span><span class="doc-val">Verify changes live at <a href="https://www.andrewdaugdaug.com" target="_blank">www.andrewdaugdaug.com</a></span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

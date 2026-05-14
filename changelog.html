@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Changelog | Andrew D.</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .wrap { max-width: 860px; padding: 80px max(1.5rem,4vw) 60px; }
+    .cl-list { display: flex; flex-direction: column; gap: 1.25rem; }
+    .cl-entry { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color .2s; }
+    .cl-entry:hover { border-color: var(--border-g); }
+    .cl-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem; padding: .85rem 1.25rem; background: var(--bg-3); border-bottom: 1px solid var(--border); }
+    .cl-version { font-size: .85rem; font-weight: 800; letter-spacing: -.02em; }
+    .cl-date { font-size: .68rem; color: var(--muted); font-weight: 500; }
+    .cl-body { padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: .4rem; }
+    .cl-item { display: flex; align-items: flex-start; gap: .65rem; font-size: .8rem; color: var(--text-2); line-height: 1.55; }
+    .cl-tag {
+      display: inline-flex; align-items: center;
+      border-radius: 4px; padding: .15rem .5rem;
+      font-size: .6rem; font-weight: 700; letter-spacing: .04em;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .tag-new  { background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.2); color: var(--green); }
+    .tag-fix  { background: rgba(251,191,36,.07); border: 1px solid rgba(251,191,36,.2); color: #fbbf24; }
+    .tag-perf { background: rgba(139,92,246,.08); border: 1px solid rgba(139,92,246,.25); color: #a78bfa; }
+    .tag-update { background: rgba(56,189,248,.07); border: 1px solid rgba(56,189,248,.2); color: #38bdf8; }
+    .tag-remove { background: rgba(248,113,113,.07); border: 1px solid rgba(248,113,113,.2); color: #f87171; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/admin" class="nav-logo">Andrew<span class="g">D.</span></a>
+  <a href="/admin" class="nav-back">&#8592; Back to Admin</a>
+</nav>
+
+<div class="wrap">
+
+  <div class="page-header">
+    <div class="page-label">Changelog</div>
+    <h1 class="page-title">Site Changelog</h1>
+    <p class="page-sub">History of updates and improvements to andrewdaugdaug.com</p>
+    <p class="page-meta">Last updated: May 14, 2026</p>
+  </div>
+
+  <div class="sec-label">Update History</div>
+  <div class="cl-list">
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-version">v1.8 — Admin, Docs and Changelog</span>
+        <span class="cl-date">May 14, 2026</span>
+      </div>
+      <div class="cl-body">
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Created admin.html dashboard with quick stats and page links</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Created documentation.html with full site technical reference</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Created changelog.html to track site update history</div>
+        <div class="cl-item"><span class="cl-tag tag-perf">Perf</span>Disabled CSS animations, backdrop-filter, and grid background on mobile</div>
+        <div class="cl-item"><span class="cl-tag tag-perf">Perf</span>Extracted shared styles to style.css for browser caching across pages</div>
+      </div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-version">v1.7 — Performance Optimization</span>
+        <span class="cl-date">May 14, 2026</span>
+      </div>
+      <div class="cl-body">
+        <div class="cl-item"><span class="cl-tag tag-perf">Perf</span>Removed Google Fonts dependency — switched to system font stack</div>
+        <div class="cl-item"><span class="cl-tag tag-perf">Perf</span>Converted profile photo from PNG (70KB) to WebP (8.9KB) — 87% smaller</div>
+        <div class="cl-item"><span class="cl-tag tag-perf">Perf</span>Added Vercel cache headers — images cached for 1 year</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Added .gitignore to keep node_modules and .claude out of repo</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Added security headers via vercel.json</div>
+      </div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-version">v1.6 — Tutorial Tracker</span>
+        <span class="cl-date">May 14, 2026</span>
+      </div>
+      <div class="cl-body">
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Created tutorial.html with weekly schedule for Cyje and Yvon</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Added tutor info cards for Mam Joy and Teacher Marilou</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Added rate card showing current rate of P400 per hour</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Added Tutorial Day and No Class status badges with legend</div>
+      </div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-version">v1.5 — Projects Page Polish</span>
+        <span class="cl-date">May 14, 2026</span>
+      </div>
+      <div class="cl-body">
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Added password protection to projects page (nissi)</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Added Casa Properties Marketing Update project</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Added Computer Tutorial project with Retainer Weekly badge</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Renamed WWHDB App to Cloud Infrastructure Migration</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Updated task descriptions to reflect AWS to DigitalOcean migration theme</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Added live URLs to Casino and Casa pipeline entries</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Added legend for badge types</div>
+        <div class="cl-item"><span class="cl-tag tag-remove">Remove</span>Removed billing date and hours columns from all projects</div>
+        <div class="cl-item"><span class="cl-tag tag-remove">Remove</span>Removed billing schedule strip from page header</div>
+        <div class="cl-item"><span class="cl-tag tag-remove">Remove</span>Removed grand total and summary card</div>
+      </div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-version">v1.4 — Project Tracker Launch</span>
+        <span class="cl-date">May 14, 2026</span>
+      </div>
+      <div class="cl-body">
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Created projects.html with Project Tracker page</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Added Loyalty App and WWHDB App project blocks</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Added Upcoming Projects pipeline section with Casino and Casa groups</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Added clean URL support via vercel.json</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Linked View Projects button on homepage to /projects</div>
+      </div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-version">v1.3 — Mobile Improvements</span>
+        <span class="cl-date">May 14, 2026</span>
+      </div>
+      <div class="cl-body">
+        <div class="cl-item"><span class="cl-tag tag-fix">Fix</span>Profile photo now visible on mobile (was hidden)</div>
+        <div class="cl-item"><span class="cl-tag tag-fix">Fix</span>Profile photo moved to top on mobile view</div>
+        <div class="cl-item"><span class="cl-tag tag-fix">Fix</span>Reduced hero section spacing on mobile</div>
+        <div class="cl-item"><span class="cl-tag tag-fix">Fix</span>Hidden floating stat chips on mobile</div>
+        <div class="cl-item"><span class="cl-tag tag-fix">Fix</span>Centered hero badges and View Projects button on mobile</div>
+        <div class="cl-item"><span class="cl-tag tag-remove">Remove</span>Removed Contact Me button on mobile — View Projects only</div>
+        <div class="cl-item"><span class="cl-tag tag-remove">Remove</span>Hidden metrics bar on mobile</div>
+      </div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-version">v1.2 — Content and Design Updates</span>
+        <span class="cl-date">May 14, 2026</span>
+      </div>
+      <div class="cl-body">
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Updated experience from 10 years to 20 years throughout</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Expanded experience timeline to 7 entries covering 2005 to present</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Updated About section with full professional bio</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Updated hero headline to "Website Infrastructure Specialist"</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Added real profile photo replacing placeholder silhouette</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Updated About heading to "Built on 20 years of hands-on experience"</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Updated Experience heading to "From classrooms to cloud infrastructure"</div>
+        <div class="cl-item"><span class="cl-tag tag-remove">Remove</span>Removed all em dashes across all pages</div>
+        <div class="cl-item"><span class="cl-tag tag-remove">Remove</span>Removed LinkedIn button from CTA</div>
+      </div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-version">v1.1 — Design Refinement</span>
+        <span class="cl-date">May 14, 2026</span>
+      </div>
+      <div class="cl-body">
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Reduced overall page height and section padding for compact layout</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Merged About and Expertise into one section</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Added infrastructure topology SVG to hero right column</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Upgraded CTA card with glassmorphism and trust strip</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Added network orbit illustration to Current Focus section</div>
+        <div class="cl-item"><span class="cl-tag tag-update">Update</span>Improved testimonial card readability and hover effects</div>
+      </div>
+    </div>
+
+    <div class="cl-entry">
+      <div class="cl-head">
+        <span class="cl-version">v1.0 — Initial Launch</span>
+        <span class="cl-date">May 14, 2026</span>
+      </div>
+      <div class="cl-body">
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Built complete portfolio site from scratch</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Dark navy theme with neon green accents</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Hero, Metrics, About, Expertise, Experience, Testimonials, Tech Stack, CTA, Footer</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Deployed to Vercel with custom domain andrewdaugdaug.com</div>
+        <div class="cl-item"><span class="cl-tag tag-new">New</span>Connected to GitHub repo ghub-drew/andrewdaugdaug</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

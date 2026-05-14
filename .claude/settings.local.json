@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m http.server 3000)",
+      "Bash(python -m http.server 8080)",
+      "Bash(node -e \"const h=require\\('http'\\),fs=require\\('fs'\\),path=require\\('path'\\);h.createServer\\(\\(req,res\\)=>{const f=path.join\\('.',req.url==='/'?'/index.html':req.url\\);fs.readFile\\(f,\\(e,d\\)=>{if\\(e\\){res.writeHead\\(404\\);res.end\\(\\);}else{res.writeHead\\(200,{'Content-Type':'text/html'}\\);res.end\\(d\\);}}\\);}\\).listen\\(3000,\\(\\)=>console.log\\('Server running at http://localhost:3000'\\)\\);\")",
+      "Bash(Test-Path \"C:\\\\Users\\\\andre\\\\Documents\\\\andrewdaugdaug\\\\images\\\\drew\\\\drew.png\")",
+      "Bash(git init *)",
+      "Bash(git remote *)",
+      "Bash(git fetch *)",
+      "Bash(git checkout *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "WebFetch(domain:wwhdb.com)",
+      "WebFetch(domain:andrewdaugdaug.com)"
+    ]
+  }
+}

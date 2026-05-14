@@ -454,7 +454,10 @@
     <div class="project-head">
       <div class="project-name-wrap">
         <div class="project-ico">🗄️</div>
-        <span class="project-name">WWHDB App</span>
+        <div>
+          <div class="project-name">WWHDB App</div>
+          <div style="font-size:.7rem;color:var(--muted-2);margin-top:.1rem;font-weight:400;">Migration from Amazon AWS to DigitalOcean</div>
+        </div>
       </div>
       <div class="project-hours">
         <span class="ph-val">12</span>
@@ -475,8 +478,8 @@
         <tr>
           <td class="task-num">1</td>
           <td class="task-desc">
-            <div class="desc-title">Site review and technology modernization</div>
-            <div class="desc-body">Conducted a full audit of the existing site, identified outdated dependencies, and implemented technology upgrades to improve stability, security, and long-term maintainability.</div>
+            <div class="desc-title">Site review and migration planning</div>
+            <div class="desc-body">Conducted a full audit of the existing AWS-hosted environment, identified dependencies, mapped services, and prepared the migration plan for moving to DigitalOcean.</div>
           </td>
           <td class="task-status hide-sm">
             <span class="badge badge-done"><span class="bd"></span>Completed</span>
@@ -487,8 +490,8 @@
         <tr>
           <td class="task-num">2</td>
           <td class="task-desc">
-            <div class="desc-title">Interface improvements and quality assurance</div>
-            <div class="desc-body">Refined the user interface for improved usability and visual consistency, followed by thorough quality assurance testing across devices and browsers to ensure reliable performance.</div>
+            <div class="desc-title">Server provisioning and environment setup</div>
+            <div class="desc-body">Provisioned the new DigitalOcean droplet, configured NGINX, PHP, and database environment, and replicated the application stack to match the existing AWS setup.</div>
           </td>
           <td class="task-status hide-sm">
             <span class="badge badge-done"><span class="bd"></span>Completed</span>
@@ -499,8 +502,8 @@
         <tr>
           <td class="task-num">3</td>
           <td class="task-desc">
-            <div class="desc-title">Server infrastructure optimization</div>
-            <div class="desc-body">Optimized server configuration including NGINX tuning, caching layers, and resource allocation to improve response times, reduce load, and strengthen overall hosting reliability.</div>
+            <div class="desc-title">Data migration and DNS cutover</div>
+            <div class="desc-body">Migrated database and files from AWS to DigitalOcean, performed integrity checks, updated DNS records, and verified the application was fully operational on the new infrastructure.</div>
           </td>
           <td class="task-status hide-sm">
             <span class="badge badge-done"><span class="bd"></span>Completed</span>
@@ -511,8 +514,8 @@
         <tr>
           <td class="task-num">4</td>
           <td class="task-desc">
-            <div class="desc-title">Data management and system decommissioning</div>
-            <div class="desc-body">Managed data cleanup, archiving, and migration tasks, followed by the safe decommissioning of legacy system components to reduce overhead and simplify the overall infrastructure footprint.</div>
+            <div class="desc-title">AWS decommissioning and final handover</div>
+            <div class="desc-body">Safely decommissioned the legacy AWS environment, archived remaining data, cancelled unused services, and completed final handover documentation for the new DigitalOcean setup.</div>
           </td>
           <td class="task-status hide-sm">
             <span class="badge badge-done"><span class="bd"></span>Completed</span>

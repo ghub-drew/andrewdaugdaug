@@ -439,15 +439,9 @@
 </div>
 
 <script>
-  (function() {
-    if (sessionStorage.getItem('projects_auth') === '1') {
-      document.getElementById('pw-overlay').style.display = 'none';
-    }
-  })();
   function checkPw() {
     const val = document.getElementById('pwInput').value;
     if (val === 'nissi') {
-      sessionStorage.setItem('projects_auth', '1');
       document.getElementById('pw-overlay').style.display = 'none';
     } else {
       document.getElementById('pwError').textContent = 'Incorrect password. Try again.';

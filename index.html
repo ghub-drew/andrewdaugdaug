@@ -545,9 +545,13 @@
         padding: 1.1rem max(1.5rem,4vw); z-index: 99;
       }
       .hero-grid { grid-template-columns: 1fr; display: flex; flex-direction: column; }
-      .hero-right { display: flex; justify-content: center; margin-top: 0; margin-bottom: 1.5rem; order: -1; }
-      .ring-wrap { width: 180px; height: 180px; }
+      .hero-right { display: flex; justify-content: center; margin-top: 0; margin-bottom: 1rem; order: -1; min-height: auto; }
+      .ring-wrap { width: 160px; height: 160px; }
+      .ring-wrap::after { display: none; }
+      .hero-topo { display: none; }
       .fc-1, .fc-2 { display: none; }
+      .hero-grid { padding: 16px 0; gap: 1rem; }
+      .hero-glow-a, .hero-glow-b { display: none; }
       .metrics-row { flex-wrap: wrap; }
       .metric { flex: 0 0 50%; border-bottom: 1px solid var(--border); }
       .tl-wrap { grid-template-columns: 1fr 1fr !important; }

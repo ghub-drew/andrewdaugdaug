@@ -381,8 +381,81 @@
       .project-head { padding: .75rem .85rem; }
     }
   </style>
+  <style>
+    #pw-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pw-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-g);
+      border-radius: var(--radius);
+      padding: 2rem 2rem 1.75rem;
+      width: 100%; max-width: 340px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .pw-box::before {
+      content: '';
+      position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+      width: 280px; height: 180px;
+      background: radial-gradient(ellipse, rgba(74,222,128,.12) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .pw-logo { font-weight: 800; font-size: 1rem; letter-spacing: -.02em; margin-bottom: .3rem; }
+    .pw-logo span { color: var(--green); }
+    .pw-title { font-size: .8rem; color: var(--muted-2); margin-bottom: 1.5rem; }
+    .pw-input {
+      width: 100%; padding: .6rem 1rem;
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: var(--r-sm); color: var(--text);
+      font-family: inherit; font-size: .875rem;
+      outline: none; transition: border-color .15s;
+      margin-bottom: .75rem; text-align: center; letter-spacing: .1em;
+    }
+    .pw-input:focus { border-color: var(--border-g); }
+    .pw-btn {
+      width: 100%; padding: .6rem;
+      background: var(--green); color: #020d02;
+      border: none; border-radius: var(--r-sm);
+      font-family: inherit; font-size: .825rem; font-weight: 700;
+      cursor: pointer; transition: all .15s;
+    }
+    .pw-btn:hover { background: #72ebb0; }
+    .pw-error { font-size: .72rem; color: #f87171; margin-top: .6rem; min-height: 1rem; }
+  </style>
 </head>
 <body>
+
+<div id="pw-overlay">
+  <div class="pw-box">
+    <div class="pw-logo">Andrew<span>D.</span></div>
+    <div class="pw-title">This page is private. Enter password to continue.</div>
+    <input class="pw-input" type="password" id="pwInput" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()" autofocus />
+    <button class="pw-btn" onclick="checkPw()">Unlock</button>
+    <div class="pw-error" id="pwError"></div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    if (sessionStorage.getItem('projects_auth') === '1') {
+      document.getElementById('pw-overlay').style.display = 'none';
+    }
+  })();
+  function checkPw() {
+    const val = document.getElementById('pwInput').value;
+    if (val === 'nissi') {
+      sessionStorage.setItem('projects_auth', '1');
+      document.getElementById('pw-overlay').style.display = 'none';
+    } else {
+      document.getElementById('pwError').textContent = 'Incorrect password. Try again.';
+      document.getElementById('pwInput').value = '';
+      document.getElementById('pwInput').focus();
+    }
+  }
+</script>
 
 <nav>
   <a href="/" class="nav-logo">Andrew<span class="g">D.</span></a>

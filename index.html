@@ -844,6 +844,25 @@
   </div>
 </section>
 
+<!-- VISITOR STATS BAR -->
+<div style="position:relative;z-index:1;background:var(--bg-2);border-top:1px solid var(--border);padding:.65rem max(1.5rem,4vw);">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;">
+    <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--muted-2);">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;animation:blink 2s infinite;flex-shrink:0;"></span>
+        <span>Page Views (30d):</span>
+        <strong id="stat-views" style="color:var(--text);">...</strong>
+      </div>
+      <div style="font-size:.72rem;color:var(--muted-2);">
+        Requests: <strong id="stat-req" style="color:var(--text);">...</strong>
+      </div>
+    </div>
+    <div id="stat-countries" style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;font-size:.7rem;color:var(--muted-2);">
+      <span>Top visitors:</span>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -856,6 +875,24 @@
 </footer>
 
 <script>
+  // Cloudflare stats
+  fetch('/api/stats')
+    .then(r => r.json())
+    .then(d => {
+      document.getElementById('stat-views').textContent = d.pageViews?.toLocaleString() || '0';
+      document.getElementById('stat-req').textContent  = d.requests?.toLocaleString()  || '0';
+      if (d.countries?.length) {
+        const top = d.countries.slice(0, 5);
+        const el  = document.getElementById('stat-countries');
+        el.innerHTML = '<span style="color:var(--muted)">Top visitors:</span> ' +
+          top.map(c => `<span style="color:var(--text-2);font-weight:600;">${c.country}</span>`).join('<span style="color:var(--muted);margin:0 .2rem">·</span>');
+      }
+    })
+    .catch(() => {
+      document.getElementById('stat-views').textContent = 'N/A';
+      document.getElementById('stat-req').textContent  = 'N/A';
+    });
+
   // Mobile nav toggle
   const ham = document.getElementById('ham');
   const nl  = document.getElementById('navLinks');

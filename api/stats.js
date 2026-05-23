@@ -10,20 +10,20 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Get zone ID
-    const zonesRes = await fetch(
-      `https://api.cloudflare.com/client/v4/zones?account.id=${accountId}&name=andrewdaugdaug.com`,
+    // First, get the Web Analytics site tag for andrewdaugdaug.com
+    const sitesRes = await fetch(
+      `https://api.cloudflare.com/client/v4/accounts/${accountId}/rum/site_info/list`,
       { headers: { Authorization: `Bearer ${token}` } }
     );
-    const zonesData = await zonesRes.json();
-    const zoneId = zonesData.result?.[0]?.id;
-    if (!zoneId) throw new Error('Zone not found');
+    const sitesData = await sitesRes.json();
+    const site = sitesData.result?.find(s => s.host === 'www.andrewdaugdaug.com' || s.host === 'andrewdaugdaug.com');
+    const siteTag = site?.tag || site?.site_tag;
 
     // Date range: last 30 days
     const until = new Date().toISOString().split('T')[0];
     const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
-    // GraphQL query for visits + top countries
+    // Query RUM (Web Analytics) data via GraphQL
     const gql = await fetch('https://api.cloudflare.com/client/v4/graphql', {
       method: 'POST',
       headers: {
@@ -33,21 +33,29 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         query: `{
           viewer {
-            zones(filter: { zoneTag: "${zoneId}" }) {
-              total: httpRequestsAdaptiveGroups(
+            accounts(filter: { accountTag: "${accountId}" }) {
+              total: rumPageloadEventsAdaptiveGroups(
                 limit: 1
-                filter: { datetime_geq: "${since}T00:00:00Z", datetime_leq: "${until}T23:59:59Z" }
+                filter: {
+                  datetime_geq: "${since}T00:00:00Z"
+                  datetime_leq: "${until}T23:59:59Z"
+                  ${siteTag ? `siteTag: "${siteTag}"` : ''}
+                }
               ) {
-                sum { pageViews }
                 count
+                sum { visits }
               }
-              countries: httpRequestsAdaptiveGroups(
+              countries: rumPageloadEventsAdaptiveGroups(
                 limit: 10
-                filter: { datetime_geq: "${since}T00:00:00Z", datetime_leq: "${until}T23:59:59Z" }
+                filter: {
+                  datetime_geq: "${since}T00:00:00Z"
+                  datetime_leq: "${until}T23:59:59Z"
+                  ${siteTag ? `siteTag: "${siteTag}"` : ''}
+                }
                 orderBy: [count_DESC]
               ) {
                 count
-                dimensions { clientCountryName }
+                dimensions { countryName }
               }
             }
           }
@@ -56,15 +64,23 @@ export default async function handler(req, res) {
     });
 
     const gqlData = await gql.json();
-    const zone = gqlData.data?.viewer?.zones?.[0];
+    const account = gqlData.data?.viewer?.accounts?.[0];
 
-    const pageViews = zone?.total?.[0]?.sum?.pageViews || 0;
-    const requests  = zone?.total?.[0]?.count || 0;
-    const countries = (zone?.countries || [])
-      .filter(c => c.dimensions?.clientCountryName)
-      .map(c => ({ country: c.dimensions.clientCountryName, count: c.count }));
+    const pageViews = account?.total?.[0]?.count || 0;
+    const visits    = account?.total?.[0]?.sum?.visits || 0;
+    const countries = (account?.countries || [])
+      .filter(c => c.dimensions?.countryName)
+      .map(c => ({ country: c.dimensions.countryName, count: c.count }));
 
-    res.status(200).json({ pageViews, requests, countries, since, until });
+    res.status(200).json({
+      pageViews,
+      requests: visits,
+      countries,
+      since,
+      until,
+      siteTag: siteTag || 'not found',
+      debug: !account ? gqlData : undefined
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

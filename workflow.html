@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real Life Workflow · Routing in Claude | Andrew D.</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .wrap { max-width: 1080px; padding: 80px max(1.5rem,4vw) 80px; }
+
+    /* HERO */
+    .wf-badge {
+      display: inline-flex; align-items: center; gap: .42rem;
+      background: rgba(74,222,128,.065); border: 1px solid rgba(74,222,128,.17);
+      border-radius: 100px; padding: .28rem .85rem;
+      font-size: .68rem; font-weight: 700; color: var(--green);
+      letter-spacing: .07em; text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .wf-title { font-size: clamp(1.7rem,4.5vw,2.6rem); font-weight: 800; letter-spacing: -.04em; line-height: 1.15; margin-bottom: .75rem; }
+    .wf-title .g { color: var(--green); }
+    .wf-sub { color: var(--muted-2); font-size: .88rem; line-height: 1.75; max-width: 600px; margin-bottom: 2.5rem; }
+
+    /* FORMULA BAR */
+    .formula-bar {
+      display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1rem 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .formula-chip {
+      display: inline-flex; align-items: center; gap: .4rem;
+      border-radius: var(--r-sm); padding: .4rem .9rem;
+      font-size: .78rem; font-weight: 700; letter-spacing: .02em;
+    }
+    .fc-trigger  { background: rgba(74,222,128,.1);  border: 1px solid rgba(74,222,128,.25);  color: var(--green); }
+    .fc-context  { background: rgba(99,102,241,.1);  border: 1px solid rgba(99,102,241,.3);   color: #a5b4fc; }
+    .fc-steering { background: rgba(139,92,246,.1);  border: 1px solid rgba(139,92,246,.3);   color: #c4b5fd; }
+    .fc-result   { background: rgba(251,191,36,.08); border: 1px solid rgba(251,191,36,.25);  color: #fbbf24; }
+    .formula-eq  { color: var(--muted); font-size: .9rem; font-weight: 700; }
+    .formula-label { font-size: .65rem; color: var(--muted); display: block; font-weight: 500; margin-top: .15rem; text-align: center; }
+
+    /* THREE COLUMNS */
+    .wf-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+    .wf-col {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .wf-col-head {
+      padding: 1.1rem 1.3rem .85rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .wf-col-num {
+      font-size: .62rem; font-weight: 800; letter-spacing: .1em;
+      text-transform: uppercase; margin-bottom: .35rem;
+    }
+    .num-trigger  { color: var(--green); }
+    .num-context  { color: #a5b4fc; }
+    .num-steering { color: #c4b5fd; }
+
+    .wf-col-title { font-size: 1rem; font-weight: 800; letter-spacing: -.025em; margin-bottom: .25rem; }
+    .wf-col-purpose { font-size: .72rem; color: var(--muted-2); }
+
+    .wf-col-body { padding: 1rem 1.3rem; flex: 1; display: flex; flex-direction: column; gap: .75rem; }
+
+    .wf-group-label {
+      font-size: .65rem; font-weight: 800; letter-spacing: .08em;
+      text-transform: uppercase; margin-bottom: .4rem;
+    }
+    .gl-trigger  { color: var(--green); }
+    .gl-context  { color: #a5b4fc; }
+    .gl-steering { color: #c4b5fd; }
+
+    .wf-item-list { display: flex; flex-direction: column; gap: .3rem; }
+    .wf-item {
+      display: flex; align-items: flex-start; gap: .5rem;
+      font-size: .77rem; color: var(--text-2); line-height: 1.55;
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: .5rem .7rem;
+    }
+    .wf-item-icon { font-size: .85rem; flex-shrink: 0; margin-top: .05rem; }
+    .wf-item-text { }
+    .wf-item-sub { font-size: .68rem; color: var(--muted); margin-top: .15rem; }
+
+    /* REAL LIFE SCENARIO */
+    .scenario-card {
+      background: var(--bg-card); border: 1px solid var(--border-g);
+      border-radius: var(--radius); overflow: hidden; margin-bottom: 3rem;
+    }
+    .scenario-head {
+      padding: 1rem 1.5rem; background: var(--bg-3);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .scenario-icon { font-size: 1.4rem; }
+    .scenario-title { font-size: .95rem; font-weight: 800; }
+    .scenario-sub { font-size: .75rem; color: var(--muted-2); margin-top: .1rem; }
+    .scenario-body { padding: 1.5rem; }
+
+    /* Flow steps */
+    .flow-steps { display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1.5rem; }
+    .flow-step {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: .85rem 1rem; background: var(--bg-3);
+      border: 1px solid var(--border); border-radius: var(--r-sm);
+      transition: border-color .2s;
+    }
+    .flow-step:hover { border-color: var(--border-g); }
+    .flow-step-left { display: flex; flex-direction: column; align-items: center; gap: .25rem; flex-shrink: 0; }
+    .step-num {
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .65rem; font-weight: 800;
+    }
+    .sn-trigger  { background: rgba(74,222,128,.12);  border: 1px solid rgba(74,222,128,.3);  color: var(--green); }
+    .sn-context  { background: rgba(99,102,241,.12);  border: 1px solid rgba(99,102,241,.3);  color: #a5b4fc; }
+    .sn-steering { background: rgba(139,92,246,.12);  border: 1px solid rgba(139,92,246,.3);  color: #c4b5fd; }
+    .sn-output   { background: rgba(251,191,36,.1);   border: 1px solid rgba(251,191,36,.3);  color: #fbbf24; }
+
+    .step-connector { width: 1px; height: 100%; min-height: 12px; background: var(--border); }
+    .flow-step-right { flex: 1; }
+    .flow-step-label { font-size: .65rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; margin-bottom: .2rem; }
+    .fl-trigger  { color: var(--green); }
+    .fl-context  { color: #a5b4fc; }
+    .fl-steering { color: #c4b5fd; }
+    .fl-output   { color: #fbbf24; }
+    .flow-step-title { font-size: .85rem; font-weight: 700; margin-bottom: .2rem; }
+    .flow-step-desc  { font-size: .76rem; color: var(--muted-2); line-height: 1.6; }
+
+    /* Comparison table */
+    .compare-table { width: 100%; border-collapse: collapse; font-size: .78rem; }
+    .compare-table th {
+      padding: .65rem 1rem; text-align: left; font-size: .65rem;
+      font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+      color: var(--muted); background: var(--bg-3);
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-table td { padding: .65rem 1rem; border-bottom: 1px solid var(--border); color: var(--text-2); vertical-align: top; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:hover td { background: rgba(255,255,255,.015); }
+    .td-task { font-weight: 600; color: var(--text); }
+    .td-without { color: #f87171; }
+    .td-with { color: var(--green); }
+
+    /* Output preview */
+    .output-card {
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 1rem 1.25rem; margin-top: 1.25rem;
+    }
+    .output-label { font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: .75rem; }
+    .output-item { display: flex; align-items: flex-start; gap: .6rem; font-size: .78rem; color: var(--text-2); line-height: 1.55; margin-bottom: .45rem; }
+    .output-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); flex-shrink: 0; margin-top: .45rem; }
+
+    /* Prompt block */
+    .prompt-block {
+      background: #060a10; border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 1rem 1.25rem;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: .73rem; color: #a5b4fc; line-height: 1.75;
+      margin-top: 1rem; overflow-x: auto;
+    }
+    .prompt-comment { color: var(--muted); }
+    .prompt-key { color: var(--green); }
+    .prompt-val { color: #fbbf24; }
+
+    /* CTA strip */
+    .cta-strip {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+      background: var(--bg-card); border: 1px solid var(--border-g);
+      border-radius: var(--radius); padding: 1.25rem 1.5rem;
+    }
+    .cta-strip-text { }
+    .cta-strip-title { font-size: .95rem; font-weight: 800; margin-bottom: .2rem; }
+    .cta-strip-sub { font-size: .78rem; color: var(--muted-2); }
+    .cta-strip-links { display: flex; gap: .75rem; flex-wrap: wrap; }
+    .cta-btn-ghost {
+      display: inline-flex; align-items: center; gap: .35rem;
+      padding: .5rem 1rem; border: 1px solid var(--border-g);
+      border-radius: var(--r-sm); font-size: .78rem; font-weight: 600;
+      color: var(--green); text-decoration: none; background: var(--glow);
+      transition: all .15s;
+    }
+    .cta-btn-ghost:hover { background: rgba(74,222,128,.15); }
+
+    @media (max-width: 860px) { .wf-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .formula-bar { gap: .4rem; } .formula-eq { display: none; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Andrew<span class="g">D.</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/">Portfolio</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/vibe-lab">Vibe Lab</a></li>
+  </ul>
+  <a href="/#contact" class="btn btn-green nav-cta-btn">Let's Connect</a>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="rv">
+    <div class="wf-badge">⚡ AI Routine · Agent Framework</div>
+    <h1 class="wf-title">Real Life Workflow Example<br><span class="g">Routing in Claude</span></h1>
+    <p class="wf-sub">A practical breakdown of how the AI Routine / Agent framework works in a real classroom setting. Using Claude as the engine, a computer teacher can automate lesson prep, exercise generation, and student feedback without losing control.</p>
+  </div>
+
+  <!-- FORMULA -->
+  <div class="formula-bar rv">
+    <div>
+      <span class="formula-chip fc-trigger">⚡ Trigger</span>
+      <span class="formula-label">Activation</span>
+    </div>
+    <span class="formula-eq">+</span>
+    <div>
+      <span class="formula-chip fc-context">🧠 Context</span>
+      <span class="formula-label">Intelligence</span>
+    </div>
+    <span class="formula-eq">+</span>
+    <div>
+      <span class="formula-chip fc-steering">🛡 Steering</span>
+      <span class="formula-label">Alignment</span>
+    </div>
+    <span class="formula-eq">=</span>
+    <div>
+      <span class="formula-chip fc-result">🎯 Autonomous Value</span>
+      <span class="formula-label">Real Output</span>
+    </div>
+  </div>
+
+  <!-- THREE COLUMNS -->
+  <div class="sec-label">Framework Breakdown</div>
+  <div class="wf-grid">
+
+    <!-- TRIGGER -->
+    <div class="wf-col rv">
+      <div class="wf-col-head">
+        <div class="wf-col-num num-trigger">01 · Trigger</div>
+        <div class="wf-col-title">When does it run?</div>
+        <div class="wf-col-purpose">The event or schedule that starts the agent.</div>
+      </div>
+      <div class="wf-col-body">
+
+        <div>
+          <div class="wf-group-label gl-trigger">Schedule-Based</div>
+          <div class="wf-item-list">
+            <div class="wf-item"><span class="wf-item-icon">📅</span><div><div class="wf-item-text">Every Monday morning before class</div><div class="wf-item-sub">Sends weekly lesson plan and objectives to students</div></div></div>
+            <div class="wf-item"><span class="wf-item-icon">📋</span><div><div class="wf-item-text">End of each lesson (Friday)</div><div class="wf-item-sub">Generates a recap summary and practice exercises</div></div></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="wf-group-label gl-trigger">Event-Based</div>
+          <div class="wf-item-list">
+            <div class="wf-item"><span class="wf-item-icon">📤</span><div><div class="wf-item-text">Student submits HTML exercise</div><div class="wf-item-sub">Agent reviews code and gives instant feedback</div></div></div>
+            <div class="wf-item"><span class="wf-item-icon">⚠️</span><div><div class="wf-item-text">Student scores below passing</div><div class="wf-item-sub">Triggers extra practice set and a review tip</div></div></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="wf-group-label gl-trigger">Custom Trigger</div>
+          <div class="wf-item-list">
+            <div class="wf-item"><span class="wf-item-icon">💬</span><div><div class="wf-item-text">Teacher types a command</div><div class="wf-item-sub">"Generate quiz for HTML forms" runs instantly</div></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CONTEXT -->
+    <div class="wf-col rv">
+      <div class="wf-col-head">
+        <div class="wf-col-num num-context">02 · Context</div>
+        <div class="wf-col-title">What does it know?</div>
+        <div class="wf-col-purpose">The knowledge and tools the agent works with.</div>
+      </div>
+      <div class="wf-col-body">
+
+        <div>
+          <div class="wf-group-label gl-context">Knowledge Sources</div>
+          <div class="wf-item-list">
+            <div class="wf-item"><span class="wf-item-icon">📚</span><div><div class="wf-item-text">Course syllabus and topic order</div><div class="wf-item-sub">HTML basics, tags, links, forms, tables, CSS intro</div></div></div>
+            <div class="wf-item"><span class="wf-item-icon">🗂️</span><div><div class="wf-item-text">Student progress records</div><div class="wf-item-sub">Who is on which lesson, weak areas, past scores</div></div></div>
+            <div class="wf-item"><span class="wf-item-icon">🐛</span><div><div class="wf-item-text">Common beginner HTML mistakes</div><div class="wf-item-sub">Unclosed tags, missing alt text, wrong nesting</div></div></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="wf-group-label gl-context">Available Tools</div>
+          <div class="wf-item-list">
+            <div class="wf-item"><span class="wf-item-icon">✏️</span><div><div class="wf-item-text">Generate coding exercises by topic</div><div class="wf-item-sub">Tags, forms, tables, images, links, semantic HTML</div></div></div>
+            <div class="wf-item"><span class="wf-item-icon">🔍</span><div><div class="wf-item-text">Check student HTML for errors</div><div class="wf-item-sub">Flags issues with hints, not just the answer</div></div></div>
+            <div class="wf-item"><span class="wf-item-icon">📝</span><div><div class="wf-item-text">Create quizzes with answer keys</div><div class="wf-item-sub">Multiple choice, fill-in, and short code tasks</div></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- STEERING -->
+    <div class="wf-col rv">
+      <div class="wf-col-head">
+        <div class="wf-col-num num-steering">03 · Steering</div>
+        <div class="wf-col-title">How do you keep it honest?</div>
+        <div class="wf-col-purpose">Controls that keep the teacher in charge.</div>
+      </div>
+      <div class="wf-col-body">
+
+        <div>
+          <div class="wf-group-label gl-steering">Human Oversight</div>
+          <div class="wf-item-list">
+            <div class="wf-item"><span class="wf-item-icon">👀</span><div><div class="wf-item-text">Teacher reviews before sending</div><div class="wf-item-sub">All exercises and quizzes go to teacher first</div></div></div>
+            <div class="wf-item"><span class="wf-item-icon">✅</span><div><div class="wf-item-text">Approve or edit outputs</div><div class="wf-item-sub">Nothing reaches students without approval</div></div></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="wf-group-label gl-steering">Verification</div>
+          <div class="wf-item-list">
+            <div class="wf-item"><span class="wf-item-icon">🧪</span><div><div class="wf-item-text">Checks if generated HTML is valid</div><div class="wf-item-sub">Agent tests its own output before showing it</div></div></div>
+            <div class="wf-item"><span class="wf-item-icon">📊</span><div><div class="wf-item-text">Validates quiz answers are correct</div><div class="wf-item-sub">Confirms answer key before distributing</div></div></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="wf-group-label gl-steering">Operational Controls</div>
+          <div class="wf-item-list">
+            <div class="wf-item"><span class="wf-item-icon">⏸️</span><div><div class="wf-item-text">Pause during exams or holidays</div><div class="wf-item-sub">Teacher controls when the routine is active</div></div></div>
+            <div class="wf-item"><span class="wf-item-icon">↩️</span><div><div class="wf-item-text">Redirect to new topic anytime</div><div class="wf-item-sub">Syllabus moves forward, agent follows</div></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- REAL SCENARIO -->
+  <div class="sec-label">Live Scenario · HTML Forms Lesson</div>
+  <div class="scenario-card rv">
+    <div class="scenario-head">
+      <div class="scenario-icon">🏫</div>
+      <div>
+        <div class="scenario-title">Computer Teacher · Web Programming Class</div>
+        <div class="scenario-sub">Topic: HTML Forms · Grade 10 · 25 students</div>
+      </div>
+    </div>
+    <div class="scenario-body">
+
+      <div class="flow-steps">
+
+        <div class="flow-step">
+          <div class="flow-step-left">
+            <div class="step-num sn-trigger">1</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="flow-step-right">
+            <div class="flow-step-label fl-trigger">Trigger · Schedule</div>
+            <div class="flow-step-title">Sunday 8PM · Lesson prep runs automatically</div>
+            <div class="flow-step-desc">The agent detects that Monday's topic is HTML Forms. It checks the syllabus, sees which students completed last week's links exercise, and prepares for this week's lesson.</div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="flow-step-left">
+            <div class="step-num sn-context">2</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="flow-step-right">
+            <div class="flow-step-label fl-context">Context · Knowledge</div>
+            <div class="flow-step-title">Agent loads what it knows about HTML Forms</div>
+            <div class="flow-step-desc">Reads the syllabus entry for forms, pulls common beginner mistakes (missing name attributes, wrong input types, no labels), and checks which 3 students scored below 70% last week and need extra attention.</div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="flow-step-left">
+            <div class="step-num sn-context">3</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="flow-step-right">
+            <div class="flow-step-label fl-context">Context · Tools</div>
+            <div class="flow-step-title">Generates lesson materials for the teacher</div>
+            <div class="flow-step-desc">Creates a 10-question quiz on HTML Forms with answer key, a coding exercise (build a contact form), and a one-page lesson summary the teacher can project in class.</div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="flow-step-left">
+            <div class="step-num sn-steering">4</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="flow-step-right">
+            <div class="flow-step-label fl-steering">Steering · Oversight</div>
+            <div class="flow-step-title">Teacher reviews everything before Monday</div>
+            <div class="flow-step-desc">Teacher opens the draft, adjusts 2 quiz questions, approves the coding exercise as-is. Nothing is shared with students yet. Teacher is still in full control.</div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="flow-step-left">
+            <div class="step-num sn-trigger">5</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="flow-step-right">
+            <div class="flow-step-label fl-trigger">Trigger · Event</div>
+            <div class="flow-step-title">Student submits their HTML form exercise</div>
+            <div class="flow-step-desc">A student uploads their contact form code. The agent is triggered instantly. It reads the HTML, checks for errors, validates structure, and prepares feedback.</div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="flow-step-left">
+            <div class="step-num sn-steering">6</div>
+            <div class="step-connector"></div>
+          </div>
+          <div class="flow-step-right">
+            <div class="flow-step-label fl-steering">Steering · Verification</div>
+            <div class="flow-step-title">Agent checks its feedback before sending</div>
+            <div class="flow-step-desc">Confirms the feedback is accurate, not too harsh, and gives hints rather than full answers. The teacher gets a summary of all submissions with scores and flags for manual review.</div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="flow-step-left">
+            <div class="step-num sn-output">7</div>
+          </div>
+          <div class="flow-step-right">
+            <div class="flow-step-label fl-output">Output · Autonomous Value</div>
+            <div class="flow-step-title">Teacher saved hours. Students got faster feedback.</div>
+            <div class="flow-step-desc">The teacher spent 10 minutes reviewing instead of 3 hours creating. Each student got personalized feedback within minutes of submitting, not the next class day.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- What the agent actually produces -->
+      <div class="output-card">
+        <div class="output-label">Sample Prompt Sent to Claude</div>
+        <div class="prompt-block">
+<span class="prompt-comment"># Role</span>
+<span class="prompt-key">You are</span> <span class="prompt-val">a helpful assistant for a computer teacher.</span>
+<span class="prompt-key">Topic:</span>    <span class="prompt-val">HTML Forms · Grade 10 Web Programming</span>
+<span class="prompt-key">Task:</span>     <span class="prompt-val">Generate a 10-question quiz and a coding exercise.</span>
+
+<span class="prompt-comment"># Context</span>
+<span class="prompt-key">- Previous topic:</span> <span class="prompt-val">HTML Links and Anchors (completed)</span>
+<span class="prompt-key">- Students to watch:</span> <span class="prompt-val">3 students scored below 70% last week</span>
+<span class="prompt-key">- Common mistakes:</span> <span class="prompt-val">missing name attributes, no labels, wrong input types</span>
+
+<span class="prompt-comment"># Output Format</span>
+<span class="prompt-key">1.</span> <span class="prompt-val">Quiz: 10 questions, mix of multiple choice and fill-in</span>
+<span class="prompt-key">2.</span> <span class="prompt-val">Exercise: Build a contact form with name, email, message, submit</span>
+<span class="prompt-key">3.</span> <span class="prompt-val">Answer key: included, not shown to students</span>
+<span class="prompt-key">Tone:</span> <span class="prompt-val">Clear, beginner-friendly, no jargon</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <div class="sec-label">Time Saved · Without vs. With Agent</div>
+  <div class="scenario-card rv" style="margin-bottom:3rem;">
+    <div class="scenario-body" style="padding:0;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Without Agent</th>
+            <th>With Agent</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-task">Weekly lesson prep</td>
+            <td class="td-without">60-90 min of manual typing</td>
+            <td class="td-with">Generated in seconds. Teacher reviews in 10 min.</td>
+          </tr>
+          <tr>
+            <td class="td-task">Creating a quiz</td>
+            <td class="td-without">30-45 min per quiz</td>
+            <td class="td-with">One command. Ready in under a minute.</td>
+          </tr>
+          <tr>
+            <td class="td-task">Checking student HTML</td>
+            <td class="td-without">Review each file one by one</td>
+            <td class="td-with">Auto-flagged errors with hints per student.</td>
+          </tr>
+          <tr>
+            <td class="td-task">Identifying struggling students</td>
+            <td class="td-without">Noticed after the next class</td>
+            <td class="td-with">Flagged immediately after low score.</td>
+          </tr>
+          <tr>
+            <td class="td-task">Sending practice exercises</td>
+            <td class="td-without">Manually typed per student</td>
+            <td class="td-with">Auto-generated, personalized per student level.</td>
+          </tr>
+          <tr>
+            <td class="td-task">Teacher control</td>
+            <td class="td-without">Full · but time-heavy</td>
+            <td class="td-with">Full · but time-efficient. Nothing sent without approval.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-strip rv">
+    <div class="cta-strip-text">
+      <div class="cta-strip-title">Want to build something like this?</div>
+      <div class="cta-strip-sub">I design and build AI-assisted workflows for real use cases. Let's talk.</div>
+    </div>
+    <div class="cta-strip-links">
+      <a href="/vibe-lab" class="cta-btn-ghost">⚡ View Vibe Lab</a>
+      <a href="/#contact" class="cta-btn-ghost">✉ Let's Connect</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const ham = document.getElementById('ham');
+  const nl  = document.getElementById('navLinks');
+  ham.addEventListener('click', () => nl.classList.toggle('open'));
+  nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nl.classList.remove('open')));
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

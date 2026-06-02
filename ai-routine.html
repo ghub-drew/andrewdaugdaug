@@ -469,23 +469,28 @@
       <!-- What the agent actually produces -->
       <div class="output-card">
         <div class="output-label">Sample Prompt Sent to Claude</div>
-        <div class="prompt-block">
-<span class="prompt-comment"># Role</span>
-<span class="prompt-key">You are</span> <span class="prompt-val">a helpful assistant for a computer teacher.</span>
-<span class="prompt-key">Topic:</span>    <span class="prompt-val">HTML Forms · Grade 10 Web Programming</span>
-<span class="prompt-key">Task:</span>     <span class="prompt-val">Generate a 10-question quiz and a coding exercise.</span>
+        <div class="prompt-block"><span class="prompt-comment"># ROLE</span>
+<span class="prompt-val">You are a helpful assistant for a computer teacher.</span>
+<span class="prompt-val">Your job is to prepare classroom materials for a web programming class.</span>
 
-<span class="prompt-comment"># Context</span>
-<span class="prompt-key">- Previous topic:</span> <span class="prompt-val">HTML Links and Anchors (completed)</span>
-<span class="prompt-key">- Students to watch:</span> <span class="prompt-val">3 students scored below 70% last week</span>
-<span class="prompt-key">- Common mistakes:</span> <span class="prompt-val">missing name attributes, no labels, wrong input types</span>
+<span class="prompt-comment"># TOPIC</span>
+<span class="prompt-key">Current lesson :</span> <span class="prompt-val">HTML Forms</span>
+<span class="prompt-key">Grade level    :</span> <span class="prompt-val">Grade 10 · Web Programming</span>
+<span class="prompt-key">Previous topic :</span> <span class="prompt-val">HTML Links and Anchors (completed)</span>
 
-<span class="prompt-comment"># Output Format</span>
-<span class="prompt-key">1.</span> <span class="prompt-val">Quiz: 10 questions, mix of multiple choice and fill-in</span>
-<span class="prompt-key">2.</span> <span class="prompt-val">Exercise: Build a contact form with name, email, message, submit</span>
-<span class="prompt-key">3.</span> <span class="prompt-val">Answer key: included, not shown to students</span>
-<span class="prompt-key">Tone:</span> <span class="prompt-val">Clear, beginner-friendly, no jargon</span>
-        </div>
+<span class="prompt-comment"># STUDENT CONTEXT</span>
+<span class="prompt-key">Class size     :</span> <span class="prompt-val">25 students</span>
+<span class="prompt-key">Watch list     :</span> <span class="prompt-val">3 students scored below 70% last week</span>
+<span class="prompt-key">Common errors  :</span> <span class="prompt-val">missing name attributes, no labels, wrong input types</span>
+
+<span class="prompt-comment"># TASK</span>
+<span class="prompt-key">1.</span> <span class="prompt-val">Generate a 10-question quiz · mix of multiple choice and fill-in</span>
+<span class="prompt-key">2.</span> <span class="prompt-val">Create a coding exercise · build a contact form (name, email, message, submit)</span>
+<span class="prompt-key">3.</span> <span class="prompt-val">Include an answer key · do not show this to students</span>
+
+<span class="prompt-comment"># TONE</span>
+<span class="prompt-val">Clear, beginner-friendly, no technical jargon.</span>
+<span class="prompt-val">Use hints in feedback, not direct answers.</span></div>
       </div>
 
     </div>

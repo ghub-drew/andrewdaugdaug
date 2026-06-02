@@ -212,7 +212,7 @@
   <div class="rv">
     <div class="wf-badge">⚡ AI Routine · Agent Framework</div>
     <h1 class="wf-title">Real Life Workflow Example<br><span class="g">Routing in Claude</span></h1>
-    <p class="wf-sub">A practical breakdown of how the AI Routine / Agent framework works in a real classroom setting. Using Claude as the engine, a computer teacher can automate lesson prep, exercise generation, and student feedback without losing control.</p>
+    <p class="wf-sub">A computer teacher teaching HTML does not need to manually write quizzes, check student code, or prep lessons every week. This page shows how a simple AI routine handles it, step by step, while the teacher stays in control.</p>
   </div>
 
   <!-- FORMULA -->
@@ -296,6 +296,15 @@
         </div>
 
         <div>
+          <div class="wf-group-label gl-context">Connectors</div>
+          <div class="wf-item-list">
+            <div class="wf-item"><span class="wf-item-icon">🎓</span><div><div class="wf-item-text">Google Classroom</div><div class="wf-item-sub">Posts assignments and reads student submissions</div></div></div>
+            <div class="wf-item"><span class="wf-item-icon">📁</span><div><div class="wf-item-text">Google Drive</div><div class="wf-item-sub">Reads submitted HTML files from the student folder</div></div></div>
+            <div class="wf-item"><span class="wf-item-icon">📊</span><div><div class="wf-item-text">Grading Sheet</div><div class="wf-item-sub">Updates scores and flags after each submission review</div></div></div>
+          </div>
+        </div>
+
+        <div>
           <div class="wf-group-label gl-context">Available Tools</div>
           <div class="wf-item-list">
             <div class="wf-item"><span class="wf-item-icon">✏️</span><div><div class="wf-item-text">Generate coding exercises by topic</div><div class="wf-item-sub">Tags, forms, tables, images, links, semantic HTML</div></div></div>
@@ -365,9 +374,9 @@
             <div class="step-connector"></div>
           </div>
           <div class="flow-step-right">
-            <div class="flow-step-label fl-trigger">Trigger · Schedule</div>
-            <div class="flow-step-title">Sunday 8PM · Lesson prep runs automatically</div>
-            <div class="flow-step-desc">The agent detects that Monday's topic is HTML Forms. It checks the syllabus, sees which students completed last week's links exercise, and prepares for this week's lesson.</div>
+            <div class="flow-step-label fl-trigger">Trigger · Every Sunday 8PM</div>
+            <div class="flow-step-title">Lesson prep starts automatically</div>
+            <div class="flow-step-desc">The routine runs on schedule. It checks the syllabus, sees that Monday's topic is HTML Forms, and kicks off the preparation process with no manual input from the teacher.</div>
           </div>
         </div>
 
@@ -377,9 +386,9 @@
             <div class="step-connector"></div>
           </div>
           <div class="flow-step-right">
-            <div class="flow-step-label fl-context">Context · Knowledge</div>
-            <div class="flow-step-title">Agent loads what it knows about HTML Forms</div>
-            <div class="flow-step-desc">Reads the syllabus entry for forms, pulls common beginner mistakes (missing name attributes, wrong input types, no labels), and checks which 3 students scored below 70% last week and need extra attention.</div>
+            <div class="flow-step-label fl-context">Context · Connectors pull live data</div>
+            <div class="flow-step-title">Google Classroom and the grading sheet are read</div>
+            <div class="flow-step-desc">Claude connects to Google Classroom to check last week's completion rates and reads the grading sheet to find which students scored below 70%. Google Drive is scanned for any submitted HTML files still pending review.</div>
           </div>
         </div>
 
@@ -389,9 +398,9 @@
             <div class="step-connector"></div>
           </div>
           <div class="flow-step-right">
-            <div class="flow-step-label fl-context">Context · Tools</div>
-            <div class="flow-step-title">Generates lesson materials for the teacher</div>
-            <div class="flow-step-desc">Creates a 10-question quiz on HTML Forms with answer key, a coding exercise (build a contact form), and a one-page lesson summary the teacher can project in class.</div>
+            <div class="flow-step-label fl-context">Context · Materials are generated</div>
+            <div class="flow-step-title">Quiz, exercise, and lesson summary ready in seconds</div>
+            <div class="flow-step-desc">Using the syllabus and common mistake patterns, Claude creates a 10-question HTML Forms quiz with answer key, a hands-on coding exercise (build a contact form), and a short lesson summary for the board.</div>
           </div>
         </div>
 
@@ -401,9 +410,9 @@
             <div class="step-connector"></div>
           </div>
           <div class="flow-step-right">
-            <div class="flow-step-label fl-steering">Steering · Oversight</div>
-            <div class="flow-step-title">Teacher reviews everything before Monday</div>
-            <div class="flow-step-desc">Teacher opens the draft, adjusts 2 quiz questions, approves the coding exercise as-is. Nothing is shared with students yet. Teacher is still in full control.</div>
+            <div class="flow-step-label fl-steering">Steering · Teacher reviews before anything is sent</div>
+            <div class="flow-step-title">Approve, edit, or reject the draft</div>
+            <div class="flow-step-desc">The teacher gets a clean draft to review. Adjust a question, reword the exercise instructions, or approve everything as-is. Nothing reaches students until the teacher says yes.</div>
           </div>
         </div>
 
@@ -413,32 +422,44 @@
             <div class="step-connector"></div>
           </div>
           <div class="flow-step-right">
-            <div class="flow-step-label fl-trigger">Trigger · Event</div>
-            <div class="flow-step-title">Student submits their HTML form exercise</div>
-            <div class="flow-step-desc">A student uploads their contact form code. The agent is triggered instantly. It reads the HTML, checks for errors, validates structure, and prepares feedback.</div>
+            <div class="flow-step-label fl-trigger">Trigger · Student submits HTML file</div>
+            <div class="flow-step-title">Submission lands in Google Drive, review starts instantly</div>
+            <div class="flow-step-desc">When a student uploads their contact form HTML to the class Drive folder, the event triggers the agent. No need to check manually, it runs on its own.</div>
           </div>
         </div>
 
         <div class="flow-step">
           <div class="flow-step-left">
-            <div class="step-num sn-steering">6</div>
+            <div class="step-num sn-context">6</div>
             <div class="step-connector"></div>
           </div>
           <div class="flow-step-right">
-            <div class="flow-step-label fl-steering">Steering · Verification</div>
-            <div class="flow-step-title">Agent checks its feedback before sending</div>
-            <div class="flow-step-desc">Confirms the feedback is accurate, not too harsh, and gives hints rather than full answers. The teacher gets a summary of all submissions with scores and flags for manual review.</div>
+            <div class="flow-step-label fl-context">Context · Code is checked</div>
+            <div class="flow-step-title">Agent reads the HTML and finds issues</div>
+            <div class="flow-step-desc">Claude reviews the student's code for missing name attributes, wrong input types, unclosed tags. It writes feedback using hints, not direct answers, so students still have to think.</div>
           </div>
         </div>
 
         <div class="flow-step">
           <div class="flow-step-left">
-            <div class="step-num sn-output">7</div>
+            <div class="step-num sn-steering">7</div>
+            <div class="step-connector"></div>
           </div>
           <div class="flow-step-right">
-            <div class="flow-step-label fl-output">Output · Autonomous Value</div>
-            <div class="flow-step-title">Teacher saved hours. Students got faster feedback.</div>
-            <div class="flow-step-desc">The teacher spent 10 minutes reviewing instead of 3 hours creating. Each student got personalized feedback within minutes of submitting, not the next class day.</div>
+            <div class="flow-step-label fl-steering">Steering · Score logged, teacher notified</div>
+            <div class="flow-step-title">Grading sheet updated, teacher reviews the summary</div>
+            <div class="flow-step-desc">Score is written back to the grading sheet automatically. Teacher gets a one-line summary per student. Any submission flagged as needing attention is highlighted for a manual look.</div>
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <div class="flow-step-left">
+            <div class="step-num sn-output">8</div>
+          </div>
+          <div class="flow-step-right">
+            <div class="flow-step-label fl-output">Result · Autonomous Value</div>
+            <div class="flow-step-title">Teacher reviews for 10 minutes instead of working for 3 hours</div>
+            <div class="flow-step-desc">Lesson prep, quiz creation, code review, and grade logging all happened automatically. The teacher focused on teaching, not paperwork. Students got feedback the same day they submitted.</div>
           </div>
         </div>
 

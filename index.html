@@ -887,8 +887,13 @@
       if (d.countries?.length) {
         const top = d.countries.slice(0, 5);
         const el  = document.getElementById('stat-countries');
+        const names = new Intl.DisplayNames(['en'], { type: 'region' });
+        const name = code => { try { return names.of(code) || code; } catch { return code; } };
         el.innerHTML = '<span style="color:var(--muted)">Top visitors:</span> ' +
-          top.map(c => `<span style="color:var(--text-2);font-weight:600;">${c.country}</span>`).join('<span style="color:var(--muted);margin:0 .2rem">·</span>');
+          top.map(c => /^[A-Z]{2}$/.test(c.country)
+            ? `<img src="https://flagcdn.com/16x12/${c.country.toLowerCase()}.png" alt="${name(c.country)}" title="${name(c.country)}" width="16" height="12" style="border-radius:2px;display:inline-block;vertical-align:middle;" />`
+            : `<span style="color:var(--text-2);font-weight:600;">${c.country}</span>`
+          ).join('<span style="color:var(--muted);margin:0 .2rem">·</span>');
       }
     })
     .catch(() => {

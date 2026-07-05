@@ -31,7 +31,7 @@
     .vl-stat-lbl { font-size: .68rem; color: var(--muted); font-weight: 500; margin-top: .1rem; }
 
     /* PROJECT CARDS */
-    .projects-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; }
+    .projects-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; align-items: start; }
 
     .project-card {
       background: var(--bg-card);
@@ -104,6 +104,22 @@
     .phase-head { display: flex; align-items: center; gap: .5rem; font-size: .75rem; font-weight: 700; }
     .phase-num { color: var(--green); font-size: .65rem; font-weight: 800; letter-spacing: .05em; }
     .phase-desc { font-size: .7rem; color: var(--muted-2); margin-top: .2rem; line-height: 1.5; }
+
+    /* Accordion */
+    .pc-head { cursor: pointer; user-select: none; position: relative; padding-right: 2.6rem; }
+    .pc-chev {
+      position: absolute; top: 50%; right: 1.2rem;
+      width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: .8rem;
+      transition: transform .3s ease, color .2s;
+      transform: translateY(-50%);
+    }
+    .project-card.open .pc-chev { transform: translateY(-50%) rotate(180deg); color: var(--green); }
+    .pc-head:hover .pc-chev { color: var(--green); }
+    .pc-collapse { overflow: hidden; max-height: 0; transition: max-height .35s ease; }
+    .pc-head { border-bottom: none; }
+    .project-card.open .pc-head { border-bottom: 1px solid var(--border); }
 
     @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } }
     @media (max-width: 480px) { .vl-stats { gap: 1.5rem; } }
@@ -578,6 +594,37 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.08 });
   document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  // Accordion cards
+  document.querySelectorAll('.project-card').forEach(card => {
+    const head = card.querySelector('.pc-head');
+    const wrap = document.createElement('div');
+    wrap.className = 'pc-collapse';
+    const body = card.querySelector('.pc-body');
+    const foot = card.querySelector('.pc-footer');
+    if (body) wrap.appendChild(body);
+    if (foot) wrap.appendChild(foot);
+    card.appendChild(wrap);
+
+    const chev = document.createElement('span');
+    chev.className = 'pc-chev';
+    chev.textContent = '▾';
+    head.appendChild(chev);
+
+    head.setAttribute('role', 'button');
+    head.setAttribute('tabindex', '0');
+    head.setAttribute('aria-expanded', 'false');
+
+    const toggle = () => {
+      const open = card.classList.toggle('open');
+      wrap.style.maxHeight = open ? wrap.scrollHeight + 'px' : '0';
+      head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    head.addEventListener('click', toggle);
+    head.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
 </script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b1ae38358fe046e6863e306229b579c2"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
